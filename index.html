@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Карта Агинского района</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Загрузочный экран -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Загрузка 3D карты...</p>
+        </div>
+    </div>
+
+    <!-- Главный экран - Карта сёл -->
+    <div id="mainScreen" class="screen active">
+        <div class="header">
+            <h1>3D Карта Агинского района</h1>
+            <p>Выберите село на карте для просмотра объектов</p>
+            <!-- Кнопка авторства -->
+            <button id="authorsBtn" class="authors-btn">О проекте</button>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-background"></div>
+            <div class="village-points">
+                <!-- Точки сёл будут добавляться динамически -->
+            </div>
+            <div class="map-overlay"></div>
+        </div>
+
+        <!-- <div class="map-legend">
+            <div class="legend-item">
+                <div class="legend-icon village-icon"></div>
+                <span>Сёла</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon object-icon"></div>
+                <span>Объекты культуры</span>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- Экран объектов села -->
+    <div id="villageScreen" class="screen">
+        <div class="header">
+            <button id="backToMain" class="back-btn">← Назад к карте</button>
+            <h1 id="villageName">Название села</h1>
+            <p>Объекты в этом селе</p>
+        </div>
+        
+        <!-- ДОБАВЛЯЕМ ЭТОТ БЛОК ДЛЯ КАРТЫ ОБЪЕКТОВ -->
+        <div class="village-map-container">
+            <div class="village-map-background">
+                <!-- Здесь будет фоновая картинка села -->
+            </div>
+            <div class="village-objects-points">
+                <!-- Точки объектов будут добавляться динамически -->
+            </div>
+            <div class="village-map-overlay"></div>
+        </div>
+        
+        <!-- Сохраняем сетку как альтернативный вид (можно скрыть) -->
+        <div class="objects-grid" style="display: none;">
+            <!-- Объекты будут добавляться динамически -->
+        </div>
+    </div>
+
+    <!-- Экран просмотра объекта -->
+    <div id="objectScreen" class="screen">
+        <div class="object-header">
+            <button id="backToVillage" class="back-btn">← Назад к селу</button>
+            <div class="object-info">
+                <h1 id="objectName">Название объекта</h1>
+                <p id="objectDescription">Описание объекта</p>
+            </div>
+        </div>
+        
+        <div class="object-controls">
+            <button id="resetCamera" class="control-btn">🔄 Сброс камеры</button>
+            <button id="toggleAutoRotate" class="control-btn">▶️ Автоповорот</button>
+        </div>
+
+        <div id="canvasContainer"></div>
+        
+        <div class="view-hint">
+            <p>🖱️ Перетаскивайте для вращения • 🔍 Колесико для zoom</p>
+        </div>
+    </div>
+
+    <!-- Модальное окно авторства -->
+    <div id="authorsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>О проекте</h2>
+            <div class="authors-info">
+                <div class="authors-group">
+                    <h3>Разработчики:</h3>
+                    <p>240 группа "Информационные системы и программирование"</p>
+                    <p>Агинский педагогический колледж</p>
+                </div>
+                <div class="authors-lead">
+                    <h3>Руководитель:</h3>
+                    <p>Константинова</p>
+                </div>
+                <div class="project-info">
+                    <h3>О проекте:</h3>
+                    <p>Интерактивная 3D карта Агинского района с культурными объектами</p>
+                    <p>Версия 1.0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
